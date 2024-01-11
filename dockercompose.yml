@@ -1,0 +1,70 @@
+version: '3'
+services:
+  mysql_host:
+    container_name: mysql_host
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=mysql_db
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=admin
+    networks:
+      - java-network
+    restart: always
+    
+  userservice:
+    image: userservice
+    ports:
+      - "8082:8081"
+    env_file:
+      - ./userservice/.env
+    depends_on:
+      - mysql_host
+    restart: always
+    networks:
+      - java-network
+
+  adminserver:
+    container_name: adminserver
+    image: adminserver
+    ports: 
+      - "8081:8081"
+    env_file:
+      - ./adminserver/.env
+    networks:
+      - java-network
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=shopping
+    networks:
+      - java-network
+    restart: always
+    depends_on:
+      - adminserver
+    
+  productservice:
+    image: productservice
+    ports:
+      - "9091:9091"
+    env_file:
+      - ./product/.env
+    depends_on:
+      - mongodb
+      - adminserver
+    networks:
+      - java-network
+  
+networks:
+  java-network:
+    name: jnetwork
+
+
+
+
+

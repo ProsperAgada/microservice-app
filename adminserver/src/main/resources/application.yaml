@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    test-connection: true
+  boot:
+    admin:
+      ui:
+        brand: "<img src= 'assets/img/logo.png'><span> Green Learner Services</span>"
+        title: 'Green Learner Services for Online Shopping Portal'
+        login-icon: 'assets/img/logo.png'
+        available-languages:
+          - en
+          - fr
+          - hi
+        view-settings:
+          - name: 'about'
+            enabled: false
+      notify:
+        mail:
+          to:
+            - ${MAIL_ADDRESS1}
+            - ${MAIL_ADDRESS1}
+          ignore-changes:
+            - ''
+

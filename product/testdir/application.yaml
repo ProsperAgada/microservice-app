@@ -1,0 +1,11 @@
+product:
+  currencies:
+    - INR
+    - USD
+    - EUR
+    - AUD
+    - HKD
+
+#spring:
+#  profiles:
+#    active: test

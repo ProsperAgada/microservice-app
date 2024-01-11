@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-svc
+  labels:
+    app: adminserver
+spec:
+  ports:
+    - nodePort: 30154 
+      port: 8081      
+      targetPort: 8081 
+      protocol: TCP
+  selector:           
+    app: adminserver
+  type: NodePort   
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminserver
+spec:
+  selector:
+    matchLabels:
+      app: adminserver
+  template:
+    metadata:
+      labels:
+        app: adminserver
+    spec:
+      containers:
+      - name: adminserver
+        image: adminserver
+        imagePullPolicy: IfNotPresent          
+        ports:
+        - containerPort: 8081
+        env:
+
+          - name: MAIL_USERNAME
+            value: effe45a3757a98
+
+          - name: MAIL_PASSWORD
+            value: 4388e7876cbc22
+
+          - name: MAIL_ADDRESS1
+            value: agasprosper@gmail.com
+          
+          - name: MAIL_ADDRESS2
+            value: prosperagada@nvit.tech
+        resources: {}  
